@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Valentine's Day</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Playfair Display', serif;
@@ -11,6 +12,7 @@
       color: #d94a5e;
       text-align: center;
       padding: 20px;
+      overflow: hidden;
     }
     h1 {
       font-size: 3em;
@@ -30,49 +32,103 @@
     .letter {
       font-size: 1.2em;
       line-height: 1.6;
+      font-family: 'Dancing Script', cursive;
     }
     .footer {
       margin-top: 40px;
       font-size: 1.1em;
       color: #7a2e3b;
     }
+    .heart {
+      font-size: 2em;
+      color: red;
+      animation: float 2s infinite;
+    }
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0); }
     }
-    .heart {
-      animation: float 2s infinite;
-      font-size: 2em;
+    @keyframes floatHeart {
+      0% { transform: translateY(0); opacity: 1; }
+      50% { transform: translateY(-20px); opacity: 0.7; }
+      100% { transform: translateY(-40px); opacity: 0; }
+    }
+    .floating-heart {
+      position: absolute;
+      font-size: 1.5em;
       color: red;
+      animation: floatHeart 4s infinite;
+    }
+    @media (max-width: 600px) {
+      .gallery img {
+        width: 100%;
+        max-width: 150px;
+      }
+      h1 {
+        font-size: 2.5em;
+      }
     }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="your-music-file.mp3" type="audio/mpeg">
+  </audio>
+
   <h1>Happy Valentine's Day, Habshie!</h1>
   <p>I created this little corner of the internet just for you.</p>
-  <img src="romantic-background.jpg" alt="Romantic Background"/>
+  <img src="romantic-background.jpg" alt="Romantic Background">
   
   <h2>Our Story</h2>
   <p>Naging tayo illegally nung Feb 27 2023, and since then, every moment with you has been magical.</p>
   
   <h2>Our Memories</h2>
   <div class="gallery">
-    <img src="photo1.jpg" alt="Memory 1"/>
-    <img src="photo2.jpg" alt="Memory 2"/>
-    <img src="photo3.jpg" alt="Memory 3"/>
+    <img src="photo1.jpg" alt="Memory 1">
+    <img src="photo2.jpg" alt="Memory 2">
+    <img src="photo3.jpg" alt="Memory 3">
   </div>
   
   <h2>A Letter to You</h2>
   <div class="letter">
-    <p>Dear Ashley Tangkad,</p>
-    <p>You mean the world to me. Your smile brightens my darkest days. I love you so much, my baby. Thank you for being my partner, my rock, and my everything. I can't wait to create more beautiful memories with you.</p>
-    <p>Forever yours,<br><strong>Timothy Arquillo</strong></p>
+    <p id="typewriter"></p>
   </div>
   
   <div class="footer">
     <span class="heart">❤️</span>
     <p>This website is my gift to you. I hope it makes you smile as much as you make me smile every day.</p>
   </div>
+
+  <script>
+    // Typewriter Effect
+    const text = "Dear Ashley Tangkad, You mean the world to me. Your smile brightens my darkest days. I love you so much, my baby. Thank you for being my partner, my rock, and my everything. I can't wait to create more beautiful memories with you. Forever yours, Timothy Arquillo.";
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById("typewriter").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 50);
+      }
+    }
+    window.onload = typeWriter;
+    
+    // Floating Hearts Animation
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.innerHTML = "❤️";
+      heart.classList.add("floating-heart");
+      document.body.appendChild(heart);
+      
+      const size = Math.random() * 20 + 10;
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.fontSize = size + "px";
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+    setInterval(createHeart, 1000);
+  </script>
 </body>
 </html>
